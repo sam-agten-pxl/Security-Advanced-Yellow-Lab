@@ -1,116 +1,20 @@
-BEFORE: Need to accept the root.cert as trusted root ca (certs folder)
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined"
+      rel="stylesheet">
+      
+# Yellow Lab PE
 
-CORS
-
-    services.AddCors(options => {
-        options.AddPolicy(name: corsPolicy,
-            builder => {
-                builder.WithOrigins("http://web:80", "http://localhost:8080")
-                .AllowAnyHeader();
-            });
-    });
-
-    ...
-    
-    app.UseCors(corsPolicy);
-
-Set up API for access token
-
-    services.AddAuthentication("Bearer")
-            .AddJwtBearer("Bearer", options =>
-            {
-                options.Authority = "https://localhost:5002";
-
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateAudience = false
-                };
-            });
-
-    ....
+Kies uit de volgende uitdagingen. Vergeet niet je proces goed te documenteren! Let op, sommige sluiten elkaar uit:
 
 
-    app.UseAuthentication();
-    app.UseAuthorization();
+- <span class="material-icons-outlined">star</span> Schrijf een lokale console applicatie die gebruik maakt van de web api. Voeg de console applicatie toe als eigen client aan de identity server met zijn eigen `client_secret`. Via de console applicatie kan je de naam intypen van een gemeente of een postcode. Er zal dan getoond worden hoeveel abonnees die gemeente heeft.
 
+    ![Console](./Console.PNG)
 
--> JWTBearer package
+- <span class="material-icons-outlined">star</span> In de plaats van een eigen identity server maak je liever gebruik van bestaande services zoals Auth0. Maar een account aan op Auth0 en zorg ervoor dat de Client Credentials flow gebruik maakt van Auth0 in de plaats van onze eigen identity server.
 
-Postman request token
-/.well-known/openid-configuration
+- <span class="material-icons-outlined">star</span><span class="material-icons-outlined">star</span> Voeg een nieuwe service toe. Een eenvoudige MVC Web app (je mag kiezen welke technologie) die een webpagina ter beschikking stelt met een eenvoudige boodscap: `Maarten lust geen spruitjes`. Om deze boodschap te zien moet je eerst inloggen. Dat doe je met behulp van `OpenID` connect. Je mag daarvoor gebruik maken Auth0 of de eigen identity server verder configureren. Zorg ervoor dat de MVC app meedraait in de docker container.
 
-Vue client
+- <span class="material-icons-outlined">star</span> <span class="material-icons-outlined">star</span> <span class="material-icons-outlined">star</span> Dit is dezelfde opdracht als/een uitbreiding op de vorige. Je maakt voorgaande opdracht. Zorg er nu voor dat er nog een tweede webpagina ter beschikking staat met de eenvoudige boodschap `Security Advanced, het beste vak.` Je voegt authorisatie toe aan de hand van de OAuth `Authorization Code Flow`. Je zorgt dat er 2 verschillende scopes zijn: `basic` en `advanced`. Met de `scope` kan je alle webpagina's zien. Met de `basic` scope kan je enkel de eerste webpagina (`Maarten lust geen spruitjes`) zien.
 
-    var details = {
-    'client_id': 'dataviz',
-    'client_secret': 'sec-adv',
-    'grant_type': 'client_credentials'
-    };
-
-    var formBody = [];
-    for (var property in details) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(details[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
-    }
-    formBody = formBody.join("&");
-
-    const requestOptions = {
-      method: 'POST',
-      headers: { "Content-Type" : "application/x-www-form-urlencoded"},
-      body: formBody
-    }
-
-    const accessTokenResponse = await fetch('https://localhost:5002/connect/token', requestOptions)
-    const accessTokenJson = await accessTokenResponse.json();
-    const accessToken = accessTokenJson.access_token;
-    console.log(accessToken);
-
-https://jwt.ms/
-
-
-    //Use the access token to get what we want
-    requestOptions.method = 'GET';
-    requestOptions.headers = {
-      "Content-Type" : "application/json",
-      "Authorization" : "Bearer " + accessToken
-    };
-    requestOptions.body = null;
-
-
-
-    const resp = await fetch("https://localhost:5100/api/seatholders", requestOptions);
-    const json = await resp.json();
-    this.data = Array.from(json, d => {
-      return {
-        areaCode: +d.areaCode,
-        city: d.city
-      }
-    });
-
-AllowAnyHeader in api (CORS blocks access token header)
-
-Allow scope in API
-
-    services.AddAuthorization(options => {
-                options.AddPolicy("ApiScope", policy =>
-                {
-                    policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("scope", "krc-genk");
-                });
-            });
-
-Enforce it globally:
-
-    app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers()
-                    .RequireAuthorization("ApiScope");
-            });
-
-
-Client Credentials is wrong! Can't use authorization code flow (no user).
-
-Answer? Revoke access token from api? No. Client secret and id is open in browser.
-
+- <span class="material-icons-outlined">star</span> <span class="material-icons-outlined">star</span> <span class="material-icons-outlined">star</span> Zorg ervoor dat alle communicatie tussen de services via HTTPS verloopt. Je mag daarvoor developer signed certificates gebruiken maar de services moeten wel blijven draaien binnen docker. Documenteer nauwkeurig!
 
