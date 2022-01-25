@@ -1,6 +1,3 @@
-<link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined"
-      rel="stylesheet">
-
 # Lab - Yellow Team
 
 In dit lab gaan we gebruiken maken van de OAuth client credentials flow om veilige machine-to-machine communicatie op te zetten. 
@@ -28,9 +25,9 @@ We hebben de services opgestart via docker, en niet lokaal laten lopen. Als je d
 
 De wep app (`http://localhost:8080`) stuurt een request naar ons api endpoint (`http://localhost:5000/api/seatholders`). Onze api weigert echter de connectie van onze web app vanwege de "CORS Policy". 
 
-<span class="material-icons-outlined">task</span> Zoek eens op wat CORS betekent. Probeer ook te achterhalen hoe we dat zouden kunnen oplossen.
+![task](./task.png) Zoek eens op wat CORS betekent. Probeer ook te achterhalen hoe we dat zouden kunnen oplossen.
 
-<span class="material-icons-outlined">task</span> Denk er aan dat de services draaien binnen een docker container. De web api draait binnen de docker container op `http://api:80`. De web app draait binnen de container op `http://web:80`. Betekent dit dat request eigenlijk gestuurd wordt van `http://web:80` naar `http://api:80`? Of van `http://localhost:8080` naar `http://api:80`? Of van `http://localhost:8080` naar `http://localhost:5000`?
+![task](./task.png) Denk er aan dat de services draaien binnen een docker container. De web api draait binnen de docker container op `http://api:80`. De web app draait binnen de container op `http://web:80`. Betekent dit dat request eigenlijk gestuurd wordt van `http://web:80` naar `http://api:80`? Of van `http://localhost:8080` naar `http://api:80`? Of van `http://localhost:8080` naar `http://localhost:5000`?
 
 
 ## CORS Policy toevoegen
@@ -65,7 +62,7 @@ Rebuild de services en draai ze opnieuw binnen docker. Surf naar `http://localho
 
 We gaan nu de client credentials flow gebruiken. Merk op dat we voor een single-page application zoals de web app eigenlijk geen client credentials zouden moeten gebruiken. Client credentials is bedoelt voor machine-to-machine communicatie, niet voor verkeer dat verloopt via de browser. We gaan op het einde zien waarom dat zo is. Als je deze api zou willen beschermen in een realistischer scenario, zouden we gebruiksbeheer moeten toevoegen, maar dit ligt wat buiten de scope van dit vak. Vooraleer we van start kunnen gaan is het belangrijk om nog eens bij te lezen over de Client Credentials flow.
 
-<span class="material-icons-outlined">task</span> Lees de informatie over client credentials nog eens na op https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow.
+![task](./task.png) Lees de informatie over client credentials nog eens na op https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow.
 
 In principe volgende we de volgende stappen:
 1. We registreren de api als resource bij de identity server
@@ -141,11 +138,11 @@ Kopieer de waarde van de access token. Surf naar https://jwt.ms. Paste de waarde
 - Body
 - Signature
 
-<span class="material-icons-outlined">task</span> Waarom hebben we deze signature nodig? Wat is deze signature?
+![task](./task.png) Waarom hebben we deze signature nodig? Wat is deze signature?
 
 Onder `iss` (kort voor issuer) vinden we terug dat de token uitgekeerd is door `http://localhost:5002`. Dit is informatie die door api gebruikt gaat worden om de token te valideren. We zien ook de `client_id`, `scope` en een expiration time (`exp`).
 
-<span class="material-icons-outlined">task</span> Waarom staat het `client_secret` niet in de token?
+![task](./task.png) Waarom staat het `client_secret` niet in de token?
 
 ## Access token opvragen via Web App
 
@@ -193,7 +190,7 @@ Het lijkt er dus op dat de request wel degelijk goed aankomt. Laat ons dan eens 
 
 We kampen hier opnieuw met een CORS probleem omdat de request naar de identity server vanuit een andere origin komt, iets dat standaard niet toegestaan is door de CORS policy. Gelukkig hebben we geleerd hoe we dit probleem moeten aanpakken.
 
-<span class="material-icons-outlined">task</span> Lost het CORS probleem tussen de identity server en de web app op.
+![task](./task.png) Lost het CORS probleem tussen de identity server en de web app op.
 
 Nadat je het CORS probleem hebt aangepakt zou je de access token moeten zien in de console van de developer tools.
 
@@ -330,6 +327,6 @@ Uiteraard printen we nu de access token af in de developer console, maar dat is 
 
 De Client Credentials flow is niet aangeraden voor single page applications. Bovendien doen we hier ook niet aan authenticatie van de gebruiker. De reden dat we dit zo opgebouwd hebben in dit lab is omdat het ons in staat stelt om eens geconfronteerd te worden met de developer nachtmerrie die CORS is en het ons in staat stelt om eens een JWT Bearer token flow op te stellen in een complexer ecosysteem. We hopen vooral dat je ziet dat het instellen van security in een productieomgeving een veel complexere taak is dan je services werkende te krijgen op je eigen machine.
 
-<span class="material-icons-outlined">task</span> Zou het gebruik van HTTPS ons helpen om de client secret in de web app te verbergen?
+![task](./task.png) Zou het gebruik van HTTPS ons helpen om de client secret in de web app te verbergen?
 
-<span class="material-icons-outlined">task</span> Welke andere OAuth flow zou hier toepasselijk zijn? Is dit wel een correcte case om OAuth toe te passen?
+![task](./task.png) Welke andere OAuth flow zou hier toepasselijk zijn? Is dit wel een correcte case om OAuth toe te passen?
