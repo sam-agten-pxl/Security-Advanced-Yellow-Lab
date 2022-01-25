@@ -1,0 +1,75 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Sam\\Documents\\PXL\\Security Advanced\\2122\\Lab Yellow Team - Opgave\\identityserver\\IdentityServer.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Sam\\Documents\\PXL\\Security Advanced\\2122\\Lab Yellow Team - Opgave\\identityserver\\IdentityServer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Sam\\Documents\\PXL\\Security Advanced\\2122\\Lab Yellow Team - Opgave\\identityserver\\IdentityServer.csproj",
+        "projectName": "IdentityServer",
+        "projectPath": "C:\\Users\\Sam\\Documents\\PXL\\Security Advanced\\2122\\Lab Yellow Team - Opgave\\identityserver\\IdentityServer.csproj",
+        "packagesPath": "C:\\Users\\Sam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sam\\Documents\\PXL\\Security Advanced\\2122\\Lab Yellow Team - Opgave\\identityserver\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Sam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "IdentityServer4": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
