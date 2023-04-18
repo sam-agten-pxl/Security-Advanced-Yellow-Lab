@@ -1,5 +1,5 @@
 #Build
-FROM node:lts-alpine AS build-env
+FROM node:16 AS build-env
 WORKDIR /App
 COPY package*.json ./
 RUN npm install
